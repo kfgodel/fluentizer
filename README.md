@@ -7,16 +7,11 @@ Java library to ease fluent apis development
 ```
         describe("using fluentizer", () -> {
 
-            context().fluentizer(() -> Fluentizer.create());
+            .... setup...
 
             describe("a traditional interface can be made fluent", () -> {
 
-                context().traditionalApi(() -> mock(TraditionalApiExample.class));
-                context().fluentApi(()-> {
-                    FluentizerApi fluentizer = context().fluentizer();
-                    TraditionalApiExample traditionalApi = context().traditionalApi();
-                    return fluentizer.expressAs(FluentApiExample.class, traditionalApi);
-                });
+                ... setup...
 
                 it("joining two method calls with one arg each, into one method call with two args", ()->{
 
