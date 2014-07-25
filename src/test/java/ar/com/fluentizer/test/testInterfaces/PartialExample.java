@@ -5,5 +5,5 @@ package ar.com.fluentizer.test.testInterfaces;
  * Created by kfgodel on 23/07/14.
  */
 public interface PartialExample {
-    void and(String world);
+    PartialExample and(String world);
 }

@@ -7,5 +7,9 @@ package ar.com.fluentizer.test.testInterfaces;
 public interface FluentApiExample {
     PartialExample everyExampleHas(String hello);
 
-    RedContinuation red();
+    RedPartial red();
+
+    StartTokenPartial startToken();
+
+    PartialExample createAListOf(String firstString);
 }

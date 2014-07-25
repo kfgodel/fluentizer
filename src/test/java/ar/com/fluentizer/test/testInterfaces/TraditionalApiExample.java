@@ -1,5 +1,7 @@
 package ar.com.fluentizer.test.testInterfaces;
 
+import java.util.List;
+
 /**
  * This type represents a traditional api using standard java conventions
  * Created by kfgodel on 23/07/14.
@@ -19,4 +21,11 @@ public interface TraditionalApiExample {
      * Exemplary option combination that gives orange
      */
     void redAndYellowAllowsOnlyOrange();
+
+    /**
+     * Example of chained tokens
+     */
+    void startTokenMiddleTokenMiddleTokenTerminalToken();
+
+    void createAListOfAnd(List<String> strings);
 }

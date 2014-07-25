@@ -7,7 +7,11 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.fluentizer.test.testInterfaces.FluentApiExample;
 import ar.com.fluentizer.test.testInterfaces.ForFluentizer;
 import ar.com.fluentizer.test.testInterfaces.TraditionalApiExample;
+import com.google.common.collect.Lists;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -50,6 +54,19 @@ public class FluentizerExampleSpec extends JavaSpec<ForFluentizer> {
                     verify(context().traditionalApi()).redAndYellowAllowsOnlyOrange();
                 });
 
+                it("allowing DSL like grammars", ()->{
+                    context().fluentApi().startToken().middleToken().middleToken().terminalToken();
+
+                    verify(context().traditionalApi()).startTokenMiddleTokenMiddleTokenTerminalToken();
+                });
+
+
+                it("joining separate arguments in one list arg", ()->{
+                    context().fluentApi().createAListOf("firstString").and("secondString").and("third").and("fourth");
+
+                    List<String> expectedArguments = (ArrayList<E>) Lists.newArrayList("firstString", "secondString", "third", "fourth");
+                    verify(context().traditionalApi()).createAListOfAnd(expectedArguments);
+                });
             });
         });
 
