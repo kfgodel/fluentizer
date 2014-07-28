@@ -1,10 +1,15 @@
 package ar.com.dgarcia.fluentizer.impl;
 
 import ar.com.dgarcia.fluentizer.api.FluentizerApi;
+import ar.com.dgarcia.fluentizer.impl.chain.FluentInvocationState;
+import ar.com.dgarcia.fluentizer.impl.chain.RootChain;
+import ar.com.dgarcia.fluentizer.impl.metadata.MethodMetadata;
+import ar.com.dgarcia.fluentizer.impl.method.TraditionalMethod;
+import ar.com.dgarcia.fluentizer.impl.proxy.FluentProxies;
 import ar.com.dgarcia.fluentizer.impl.proxy.FluentProxyHandler;
-import ar.com.dgarcia.fluentizer.impl.proxy.JavaProxies;
-import ar.com.dgarcia.fluentizer.impl.proxy.JavaProxyHandlerAdapter;
 import ar.com.dgarcia.fluentizer.impl.proxy.ProxyHandler;
+
+import java.util.Set;
 
 /**
  * This type is the implementation of fluentizer
@@ -20,17 +25,13 @@ public class Fluentizer implements FluentizerApi {
     @Override
     public <T> T expressAs(Class<T> fluentApiClass, Object realApiHandler) {
         ProxyHandler handler = createFluentHandlerFor(realApiHandler);
-        T fluentApi = createProxyFor(fluentApiClass, handler);
+        T fluentApi = FluentProxies.createProxyFor(fluentApiClass, handler);
         return fluentApi;
     }
 
-    private <T> T createProxyFor(Class<T> fluentApiClass, ProxyHandler handler) {
-        JavaProxyHandlerAdapter javaHandler = JavaProxyHandlerAdapter.create(handler);
-        T javaProxy = JavaProxies.createProxyOf(fluentApiClass, javaHandler);
-        return javaProxy;
-    }
-
     private ProxyHandler createFluentHandlerFor(Object realApiHandler) {
-        return FluentProxyHandler.create();
+        Set<TraditionalMethod> allApiMethods = MethodMetadata.getApiMethodsFrom(realApiHandler);
+        FluentInvocationState startingState = FluentInvocationState.create(RootChain.create(), allApiMethods, realApiHandler);
+        return FluentProxyHandler.create(startingState);
     }
 }
