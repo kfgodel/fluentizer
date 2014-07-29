@@ -1,6 +1,8 @@
 package ar.com.dgarcia.fluentizer.impl.proxy;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * This type represents a method invocation generated from a java proxy
@@ -18,4 +20,18 @@ public class JavaProxyInvocation implements MethodInvocation {
         return invocation;
     }
 
+    @Override
+    public String getMethodName() {
+        return null;
+    }
+
+    @Override
+    public List<Type> getMethodParameterTypes() {
+        return null;
+    }
+
+    @Override
+    public List<Object> getInvocationArguments() {
+        return null;
+    }
 }

@@ -29,4 +29,10 @@ public interface FluentChain {
      * @return The list of arguments in the order they were collected
      */
     List<Object> getCollectedArguments();
+
+    /**
+     * Returns the chained names of the invocations
+     * @return The name of all invocations as one method
+     */
+    String getChainedName();
 }

@@ -3,6 +3,8 @@ package ar.com.dgarcia.fluentizer.impl.chain;
 import ar.com.dgarcia.fluentizer.impl.method.TraditionalMethod;
 import ar.com.dgarcia.fluentizer.impl.proxy.MethodInvocation;
 
+import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +14,10 @@ import java.util.List;
 public class RootChain implements FluentChain {
     @Override
     public FluentChain chainedTo(MethodInvocation invocation) {
-        return null;
+        String startingName = invocation.getMethodName();
+        List<Object> startingArgs = invocation.getInvocationArguments();
+        List<Type> startingTypes = invocation.getMethodParameterTypes();
+        return InvocationChain.create(startingName, startingArgs, startingTypes);
     }
 
     @Override
@@ -22,7 +27,12 @@ public class RootChain implements FluentChain {
 
     @Override
     public List<Object> getCollectedArguments() {
-        return null;
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getChainedName() {
+        return "";
     }
 
     public static RootChain create() {
