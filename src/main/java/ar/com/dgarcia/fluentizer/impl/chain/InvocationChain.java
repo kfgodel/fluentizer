@@ -23,7 +23,7 @@ public class InvocationChain implements FluentChain {
         List<Object> combinedArgs = new ArrayList<>(getCollectedArguments());
         combinedArgs.addAll(invocation.getInvocationArguments());
 
-        List<Type> combinedTypes = new ArrayList<>(collectedParameters);
+        List<Type> combinedTypes = new ArrayList<>(getCollectedParameters());
         combinedTypes.addAll(invocation.getMethodParameterTypes());
 
         FluentChain createdChain = InvocationChain.create(combinedName, combinedArgs, combinedTypes);
@@ -40,9 +40,9 @@ public class InvocationChain implements FluentChain {
     }
 
     @Override
-    public boolean canBeInvokedAs(TraditionalMethod foundMethod) {
+    public boolean isCompleteFor(TraditionalMethod foundMethod) {
         boolean hasSameName = getChainedName().equals(foundMethod.getMethodName());
-        boolean parameterTypes = collectedParameters.equals(foundMethod.getParameterTypes());
+        boolean parameterTypes = getCollectedParameters().equals(foundMethod.getParameterTypes());
         return hasSameName && parameterTypes;
     }
 
@@ -56,6 +56,36 @@ public class InvocationChain implements FluentChain {
         return chainedName;
     }
 
+    @Override
+    public boolean isPartialFor(TraditionalMethod currentMethod) {
+        boolean isPartialMethodName = currentMethod.getMethodName().startsWith(getChainedName());
+        if(!isPartialMethodName){
+            return false;
+        }
+        return startsWithSameParameterTypes(currentMethod);
+    }
+
+    /**
+     * Indicates if the given method starts with parameters equals to those of this chain
+     * @param currentMethod The method to check
+     * @return false if any of the parameter types of this chain are different
+     */
+    private boolean startsWithSameParameterTypes(TraditionalMethod currentMethod) {
+        List<Type> methodTypes = currentMethod.getParameterTypes();
+        List<Type> chainParameters = getCollectedParameters();
+        if(chainParameters.size() > methodTypes.size()){
+            return false;
+        }
+        for (int i = 0; i < chainParameters.size(); i++) {
+            Type chainType = chainParameters.get(i);
+            Type methodType = methodTypes.get(i);
+            if(!chainType.equals(methodType)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static InvocationChain create(String chainedName, List<Object> arguments, List<Type> parameterTypes) {
         InvocationChain chain = new InvocationChain();
         chain.chainedName = chainedName;
@@ -63,4 +93,9 @@ public class InvocationChain implements FluentChain {
         chain.collectedParameters = parameterTypes;
         return chain;
     }
+
+    public List<Type> getCollectedParameters() {
+        return collectedParameters;
+    }
+
 }

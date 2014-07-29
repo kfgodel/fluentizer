@@ -1,5 +1,8 @@
 package ar.com.dgarcia.fluentizer.impl.method;
 
+import ar.com.dgarcia.fluentizer.api.FluentizerException;
+
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -15,7 +18,13 @@ public class JavaMethod implements TraditionalMethod {
 
     @Override
     public Object invokeOn(Object hostInstance, List<Object> chainArgs) {
-        return null;
+        try {
+            return primitiveMethod.invoke(hostInstance, chainArgs.toArray());
+        } catch (IllegalAccessException e) {
+            throw new FluentizerException("illegal access",e);
+        } catch (InvocationTargetException e) {
+            throw new FluentizerException("invok excep",e);
+        }
     }
 
     @Override

@@ -22,7 +22,7 @@ public interface FluentChain {
      * @param foundMethod The method to be invoked as this chain
      * @return true if the args of this cain can be passed to the method invocation
      */
-    boolean canBeInvokedAs(TraditionalMethod foundMethod);
+    boolean isCompleteFor(TraditionalMethod foundMethod);
 
     /**
      * Returns the arguments collected in the chain
@@ -35,4 +35,11 @@ public interface FluentChain {
      * @return The name of all invocations as one method
      */
     String getChainedName();
+
+    /**
+     * Indicates if this chain is a partial description of given method
+     * @param currentMethod The method to test
+     * @return true if the method name starts with this chain and matches parameter types
+     */
+    boolean isPartialFor(TraditionalMethod currentMethod);
 }

@@ -21,7 +21,7 @@ public class RootChain implements FluentChain {
     }
 
     @Override
-    public boolean canBeInvokedAs(TraditionalMethod foundMethod) {
+    public boolean isCompleteFor(TraditionalMethod foundMethod) {
         return false;
     }
 
@@ -33,6 +33,11 @@ public class RootChain implements FluentChain {
     @Override
     public String getChainedName() {
         return "";
+    }
+
+    @Override
+    public boolean isPartialFor(TraditionalMethod currentMethod) {
+        return true;
     }
 
     public static RootChain create() {

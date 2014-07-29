@@ -1,7 +1,10 @@
 package ar.com.dgarcia.fluentizer.impl.proxy;
 
+import com.google.common.collect.Lists;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,16 +25,24 @@ public class JavaProxyInvocation implements MethodInvocation {
 
     @Override
     public String getMethodName() {
-        return null;
+        return method.getName();
     }
 
     @Override
     public List<Type> getMethodParameterTypes() {
-        return null;
+        return Lists.newArrayList(method.getGenericParameterTypes());
     }
 
     @Override
     public List<Object> getInvocationArguments() {
-        return null;
+        if(args == null){
+            return Collections.emptyList();
+        }
+        return Lists.newArrayList(args);
+    }
+
+    @Override
+    public Class<?> getMethodReturnClass() {
+        return method.getReturnType();
     }
 }

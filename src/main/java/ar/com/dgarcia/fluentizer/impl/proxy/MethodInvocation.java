@@ -24,4 +24,10 @@ public interface MethodInvocation {
      * @return
      */
     List<Object> getInvocationArguments();
+
+    /**
+     * Returns the class that represents the return type for the invoked method
+     * @return The expected type
+     */
+    Class<?> getMethodReturnClass();
 }

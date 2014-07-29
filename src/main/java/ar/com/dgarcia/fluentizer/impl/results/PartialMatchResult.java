@@ -23,7 +23,7 @@ public class PartialMatchResult implements Supplier<Object> {
     }
 
     private Class<?> getReturnTypeFromLastInvocation() {
-        return null;
+        return lastInvocation.getMethodReturnClass();
     }
 
     public static PartialMatchResult create(FluentInvocationState nextState, MethodInvocation invocation) {

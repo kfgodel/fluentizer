@@ -6,8 +6,10 @@ import ar.com.dgarcia.fluentizer.impl.results.DeadEndResult;
 import ar.com.dgarcia.fluentizer.impl.results.MethodMatchResult;
 import ar.com.dgarcia.fluentizer.impl.results.PartialMatchResult;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Created by kfgodel on 28/07/14.
@@ -28,7 +30,7 @@ public class FluentInvocationState implements FluentState {
         }
         if(matchedMethods.size() == 1){
             TraditionalMethod foundMethod = matchedMethods.stream().findFirst().get();
-            if(nextChain.canBeInvokedAs(foundMethod)){
+            if(nextChain.isCompleteFor(foundMethod)){
                 return MethodMatchResult.create(nextChain, foundMethod, hostInstance);
             }
         }
@@ -37,7 +39,10 @@ public class FluentInvocationState implements FluentState {
     }
 
     private Set<TraditionalMethod> filterMethodsStartingWith(FluentChain nextChain) {
-        return null;
+        Set<TraditionalMethod> filteredMethods = currentMethods.stream()
+                .filter(currentMethod -> nextChain.isPartialFor(currentMethod))
+                .collect(Collectors.toCollection(() -> new LinkedHashSet<>()));
+        return filteredMethods;
     }
 
     public static FluentInvocationState create(FluentChain chain, Set<TraditionalMethod> methods, Object hostInstance) {

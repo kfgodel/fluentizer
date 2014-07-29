@@ -32,13 +32,16 @@ public class InvocationChainSpec extends JavaSpec<InvocationChainSpec.Invocation
 
         void doubleChain(Supplier<FluentChain> definition);
         FluentChain doubleChain();
+
+        void invokableMethod(Supplier<TraditionalMethod> definition);
+        TraditionalMethod invokableMethod();
     }
 
     @Override
     public void define() {
 
         context().rootChain(()-> RootChain.create());
-        context().mockedInvocation(()-> {
+        context().mockedInvocation(() -> {
             MethodInvocation mocked = mock(MethodInvocation.class);
             when(mocked.getMethodName()).thenReturn("aMethod");
             when(mocked.getInvocationArguments()).thenReturn(Lists.newArrayList("1", "2"));
@@ -47,8 +50,11 @@ public class InvocationChainSpec extends JavaSpec<InvocationChainSpec.Invocation
         });
 
         describe("root chain", () -> {
-            it("cannot be invoked", () -> {
-                assertThat(context().rootChain().canBeInvokedAs(null)).isFalse();
+            it("is not complete for any method", () -> {
+                assertThat(context().rootChain().isCompleteFor(null)).isFalse();
+            });
+            it("is partial for all", () -> {
+                assertThat(context().rootChain().isPartialFor(null)).isTrue();
             });
             it("has empty name", () -> {
                 assertThat(context().rootChain().getChainedName()).isEmpty();
@@ -68,17 +74,26 @@ public class InvocationChainSpec extends JavaSpec<InvocationChainSpec.Invocation
                     .chainedTo(context().mockedInvocation())
                     .chainedTo(context().mockedInvocation()));
 
+            context().invokableMethod(()->{
+                TraditionalMethod mockedTraditional = mock(TraditionalMethod.class);
+                when(mockedTraditional.getMethodName()).thenReturn("aMethodAMethod");
+                when(mockedTraditional.getParameterTypes()).thenReturn(Lists.newArrayList(String.class, String.class, String.class, String.class));
+                return mockedTraditional;
+            });
+
+            it("is partial for the invokable method", ()->{
+                FluentChain partialChain = context().rootChain().chainedTo(context().mockedInvocation());
+                assertThat(partialChain.isPartialFor(context().invokableMethod())).isTrue();
+            });
+            it("is completed matching method by name and arg", ()->{
+                assertThat(context().doubleChain().isCompleteFor(context().invokableMethod())).isTrue();
+            });
+
             it("concatenates invoked method names with capital letter", ()->{
                 assertThat(context().doubleChain().getChainedName()).isEqualTo("aMethodAMethod");
             });
             it("collects invocation args in a list", ()->{
                 assertThat(context().doubleChain().getCollectedArguments()).isEqualTo(Lists.newArrayList("1","2","1","2"));
-            });
-            it("can detect a feasible invocation by name and arg", ()->{
-                TraditionalMethod mockedTraditional = mock(TraditionalMethod.class);
-                when(mockedTraditional.getMethodName()).thenReturn("aMethodAMethod");
-                when(mockedTraditional.getParameterTypes()).thenReturn(Lists.newArrayList(String.class, String.class, String.class, String.class));
-                assertThat(context().doubleChain().canBeInvokedAs(mockedTraditional)).isTrue();
             });
 
         });
