@@ -23,4 +23,9 @@ public class DeadEndResult implements Supplier<Object> {
         result.invalidChain = failingChain;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ": " + invalidChain;
+    }
 }

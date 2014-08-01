@@ -1,5 +1,6 @@
-package ar.com.dgarcia.fluentizer.impl.chain;
+package ar.com.dgarcia.fluentizer.impl.state;
 
+import ar.com.dgarcia.fluentizer.impl.chain.FluentChain;
 import ar.com.dgarcia.fluentizer.impl.method.TraditionalMethod;
 import ar.com.dgarcia.fluentizer.impl.proxy.MethodInvocation;
 import ar.com.dgarcia.fluentizer.impl.results.DeadEndResult;
@@ -51,5 +52,17 @@ public class FluentInvocationState implements FluentState {
         state.currentMethods = methods;
         state.hostInstance = hostInstance;
         return state;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(getClass().getSimpleName());
+        builder.append("{");
+        builder.append("chain: ");
+        builder.append(currentChain.getChainedName());
+        builder.append(", methods: ");
+        builder.append(currentMethods);
+        builder.append("}");
+        return builder.toString();
     }
 }

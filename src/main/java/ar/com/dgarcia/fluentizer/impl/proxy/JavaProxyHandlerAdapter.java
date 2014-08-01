@@ -22,4 +22,9 @@ public class JavaProxyHandlerAdapter implements InvocationHandler {
         adapter.proxyHandler = proxyHandler;
         return adapter;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ": " + proxyHandler;
+    }
 }

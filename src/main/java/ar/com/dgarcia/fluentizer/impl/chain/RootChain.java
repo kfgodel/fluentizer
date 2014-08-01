@@ -44,4 +44,9 @@ public class RootChain implements FluentChain {
         RootChain rootChain = new RootChain();
         return rootChain;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
 }

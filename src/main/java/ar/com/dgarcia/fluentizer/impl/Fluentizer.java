@@ -1,7 +1,7 @@
 package ar.com.dgarcia.fluentizer.impl;
 
 import ar.com.dgarcia.fluentizer.api.FluentizerApi;
-import ar.com.dgarcia.fluentizer.impl.chain.FluentInvocationState;
+import ar.com.dgarcia.fluentizer.impl.state.FluentInvocationState;
 import ar.com.dgarcia.fluentizer.impl.chain.RootChain;
 import ar.com.dgarcia.fluentizer.impl.metadata.MethodMetadata;
 import ar.com.dgarcia.fluentizer.impl.method.TraditionalMethod;
@@ -33,5 +33,10 @@ public class Fluentizer implements FluentizerApi {
         Set<TraditionalMethod> allApiMethods = MethodMetadata.getApiMethodsFrom(realApiHandler);
         FluentInvocationState startingState = FluentInvocationState.create(RootChain.create(), allApiMethods, realApiHandler);
         return FluentProxyHandler.create(startingState);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
     }
 }

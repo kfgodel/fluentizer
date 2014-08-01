@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,5 +45,16 @@ public class JavaProxyInvocation implements MethodInvocation {
     @Override
     public Class<?> getMethodReturnClass() {
         return method.getReturnType();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(getClass().getSimpleName());
+        builder.append("{ methods: ");
+        builder.append(this.method);
+        builder.append(", args: ");
+        builder.append(Arrays.toString(this.args));
+        builder.append("}");
+        return builder.toString();
     }
 }

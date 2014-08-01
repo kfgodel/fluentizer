@@ -1,4 +1,4 @@
-package ar.com.dgarcia.fluentizer.impl.chain;
+package ar.com.dgarcia.fluentizer.impl.state;
 
 import ar.com.dgarcia.fluentizer.impl.proxy.MethodInvocation;
 

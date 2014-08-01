@@ -1,6 +1,6 @@
 package ar.com.dgarcia.fluentizer.impl.results;
 
-import ar.com.dgarcia.fluentizer.impl.chain.FluentInvocationState;
+import ar.com.dgarcia.fluentizer.impl.state.FluentInvocationState;
 import ar.com.dgarcia.fluentizer.impl.proxy.*;
 
 import java.util.function.Supplier;
@@ -12,13 +12,13 @@ import java.util.function.Supplier;
 public class PartialMatchResult implements Supplier<Object> {
 
 
-    private FluentInvocationState nextState;
+    private FluentInvocationState currentState;
     private MethodInvocation lastInvocation;
 
     @Override
     public Object get() {
         Class<?> expectedReturnType = getReturnTypeFromLastInvocation();
-        Object nextProxy = FluentProxies.createProxyFor(expectedReturnType, FluentProxyHandler.create(nextState));
+        Object nextProxy = FluentProxies.createProxyFor(expectedReturnType, FluentProxyHandler.create(currentState));
         return nextProxy;
     }
 
@@ -26,10 +26,15 @@ public class PartialMatchResult implements Supplier<Object> {
         return lastInvocation.getMethodReturnClass();
     }
 
-    public static PartialMatchResult create(FluentInvocationState nextState, MethodInvocation invocation) {
+    public static PartialMatchResult create(FluentInvocationState state, MethodInvocation invocation) {
         PartialMatchResult result = new PartialMatchResult();
-        result.nextState = nextState;
+        result.currentState = state;
         result.lastInvocation = invocation;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ": " + currentState ;
     }
 }

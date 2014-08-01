@@ -1,6 +1,6 @@
 package ar.com.dgarcia.fluentizer.impl.proxy;
 
-import ar.com.dgarcia.fluentizer.impl.chain.FluentState;
+import ar.com.dgarcia.fluentizer.impl.state.FluentState;
 
 import java.util.function.Supplier;
 
@@ -22,5 +22,10 @@ public class FluentProxyHandler implements ProxyHandler {
     public Object proxy(MethodInvocation invocation) {
         Supplier<Object> responseSupplier = fluentState.calculateNextFor(invocation);
         return responseSupplier.get();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ": " + fluentState;
     }
 }

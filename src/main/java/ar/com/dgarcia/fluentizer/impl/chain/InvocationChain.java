@@ -98,4 +98,15 @@ public class InvocationChain implements FluentChain {
         return collectedParameters;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(getClass().getSimpleName());
+        builder.append("{");
+        builder.append("name: ");
+        builder.append(this.chainedName);
+        builder.append(", args: ");
+        builder.append(this.getCollectedArguments());
+        builder.append("}");
+        return builder.toString();
+    }
 }

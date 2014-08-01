@@ -29,4 +29,9 @@ public class MethodMatchResult implements Supplier<Object> {
         result.matchingChain = matchingChain;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ": " + matchingMethod;
+    }
 }
