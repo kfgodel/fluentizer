@@ -27,7 +27,7 @@ public class FluentInvocationState implements FluentState {
         Set<TraditionalMethod> matchedMethods = filterMethodsStartingWith(nextChain);
         if(matchedMethods.isEmpty()){
            // We cannot satisfy the invocation
-           return DeadEndResult.create(nextChain);
+           return DeadEndResult.create(nextChain, hostInstance);
         }
         if(matchedMethods.size() == 1){
             TraditionalMethod foundMethod = matchedMethods.stream().findFirst().get();

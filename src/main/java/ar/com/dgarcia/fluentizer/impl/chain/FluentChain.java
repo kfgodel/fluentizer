@@ -3,6 +3,7 @@ package ar.com.dgarcia.fluentizer.impl.chain;
 import ar.com.dgarcia.fluentizer.impl.method.TraditionalMethod;
 import ar.com.dgarcia.fluentizer.impl.proxy.MethodInvocation;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -29,6 +30,12 @@ public interface FluentChain {
      * @return The list of arguments in the order they were collected
      */
     List<Object> getCollectedArguments();
+
+    /**
+     * Returns the list of parameter types that invoked method accepted with the argument objects
+     * @return The list parameters in each method invocation
+     */
+    List<Type> getCollectedParameters();
 
     /**
      * Returns the chained names of the invocations

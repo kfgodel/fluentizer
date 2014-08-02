@@ -31,6 +31,11 @@ public class RootChain implements FluentChain {
     }
 
     @Override
+    public List<Type> getCollectedParameters() {
+        return Collections.emptyList();
+    }
+
+    @Override
     public String getChainedName() {
         return "";
     }

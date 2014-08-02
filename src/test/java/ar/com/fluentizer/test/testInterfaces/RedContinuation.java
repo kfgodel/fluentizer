@@ -8,4 +8,6 @@ public interface RedContinuation {
     PartialRedBlue andBlue();
 
     PartialRedYellow andYellow();
+
+    void unimplementedMethod();
 }

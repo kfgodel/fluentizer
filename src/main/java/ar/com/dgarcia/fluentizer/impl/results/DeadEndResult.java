@@ -11,16 +11,26 @@ import java.util.function.Supplier;
  */
 public class DeadEndResult implements Supplier<Object> {
 
+    private Object hostInstance;
     private FluentChain invalidChain;
 
     @Override
     public Object get() {
-        throw new FluentizerException("There's no method to be invoked identified as : " + invalidChain);
+        StringBuilder builder = new StringBuilder();
+        builder.append("There's no method identified as: ");
+        builder.append(invalidChain.getChainedName());
+        builder.append("(");
+        builder.append(invalidChain.getCollectedParameters());
+        builder.append(") to be invoked in [");
+        builder.append(hostInstance.getClass().getSimpleName());
+        builder.append("]. Cannot make fluent invocation");
+        throw new FluentizerException(builder.toString());
     }
 
-    public static DeadEndResult create(FluentChain failingChain) {
+    public static DeadEndResult create(FluentChain failingChain, Object hostInstance) {
         DeadEndResult result = new DeadEndResult();
         result.invalidChain = failingChain;
+        result.hostInstance = hostInstance;
         return result;
     }
 

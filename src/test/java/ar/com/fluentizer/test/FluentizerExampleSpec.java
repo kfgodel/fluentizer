@@ -1,6 +1,7 @@
 package ar.com.fluentizer.test;
 
 import ar.com.dgarcia.fluentizer.api.FluentizerApi;
+import ar.com.dgarcia.fluentizer.api.FluentizerException;
 import ar.com.dgarcia.fluentizer.impl.Fluentizer;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
@@ -9,6 +10,8 @@ import ar.com.fluentizer.test.testInterfaces.ForFluentizer;
 import ar.com.fluentizer.test.testInterfaces.TraditionalApiExample;
 import org.junit.runner.RunWith;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -48,6 +51,17 @@ public class FluentizerExampleSpec extends JavaSpec<ForFluentizer> {
 
                     verify(context().traditionalApi()).redAndBlueAllowsOnlyViolet();
                     verify(context().traditionalApi()).redAndYellowAllowsOnlyOrange();
+                });
+
+                it("throwing an exception if no traditional method found", ()->{
+
+                    try {
+                        context().fluentApi().red().unimplementedMethod();
+                        failBecauseExceptionWasNotThrown(FluentizerException.class);
+                    }catch (FluentizerException e){
+                        assertThat(e.getMessage()).startsWith("There's no method identified as: redUnimplementedMethod([])");
+                    }
+
                 });
 
             });
