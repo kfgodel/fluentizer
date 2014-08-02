@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ar.com.dgarcia</groupId>
   <artifactId>fluentizer</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <name>Fluentizer</name>
   <description>Library to offer fluent api helpers</description>
   

@@ -31,3 +31,26 @@ Java library to ease fluent apis development
             });
         });
 ```
+
+### Maven dependency ###
+
+* Add this repository to your pom:  
+```
+#!xml
+    <repository>
+      <id>kfgodel_mosquito</id>
+      <name>Repo Mosquito</name>
+      <url>http://kfgodel.info:8081/nexus/content/groups/public/</url>
+    </repository>
+```
+
+* Declare the dependency
+```
+#!xml
+
+<dependency>
+  <groupId>ar.com.dgarcia</groupId>
+  <artifactId>fluentizer</artifactId>
+  <version>1.0</version>
+</dependency>
+```
