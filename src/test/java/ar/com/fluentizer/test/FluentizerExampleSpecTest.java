@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
  * Created by kfgodel on 23/07/14.
  */
 @RunWith(JavaSpecRunner.class)
-public class FluentizerExampleSpec extends JavaSpec<ForFluentizer> {
+public class FluentizerExampleSpecTest extends JavaSpec<ForFluentizer> {
 
     @Override
     public void define() {

@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by kfgodel on 28/07/14.
  */
 @RunWith(JavaSpecRunner.class)
-public class MethodMetadataSpec extends JavaSpec<TestContext> {
+public class MethodMetadataSpecTest extends JavaSpec<TestContext> {
 
     public static class TestingClass{
         public void anApiMethod(){

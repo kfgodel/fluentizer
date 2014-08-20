@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
  * Created by kfgodel on 26/07/14.
  */
 @RunWith(JavaSpecRunner.class)
-public class ProxyHandlerSpec extends JavaSpec<TestContext> {
+public class ProxyHandlerSpecTest extends JavaSpec<TestContext> {
 
     @Override
     public void define() {

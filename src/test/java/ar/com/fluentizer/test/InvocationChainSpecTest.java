@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
  * Created by kfgodel on 28/07/14.
  */
 @RunWith(JavaSpecRunner.class)
-public class InvocationChainSpec extends JavaSpec<InvocationChainSpec.InvocationChainSpecContext> {
+public class InvocationChainSpecTest extends JavaSpec<InvocationChainSpecTest.InvocationChainSpecContext> {
 
     public static interface InvocationChainSpecContext extends TestContext {
         void rootChain(Supplier<FluentChain> definition);
