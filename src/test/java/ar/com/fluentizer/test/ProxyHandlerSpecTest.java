@@ -13,6 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
+ * This type verifies behavior of Java proxy
  * Created by kfgodel on 26/07/14.
  */
 @RunWith(JavaSpecRunner.class)

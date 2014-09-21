@@ -6,7 +6,7 @@ import ar.com.dgarcia.fluentizer.impl.Fluentizer;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.fluentizer.test.testInterfaces.FluentApiExample;
-import ar.com.fluentizer.test.testInterfaces.ForFluentizer;
+import ar.com.fluentizer.test.testInterfaces.FluentizerTestContext;
 import ar.com.fluentizer.test.testInterfaces.TraditionalApiExample;
 import org.junit.runner.RunWith;
 
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
  * Created by kfgodel on 23/07/14.
  */
 @RunWith(JavaSpecRunner.class)
-public class FluentizerExampleSpecTest extends JavaSpec<ForFluentizer> {
+public class FluentizerExampleSpecTest extends JavaSpec<FluentizerTestContext> {
 
     @Override
     public void define() {

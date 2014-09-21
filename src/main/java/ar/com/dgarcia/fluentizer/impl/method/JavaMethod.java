@@ -17,13 +17,14 @@ public class JavaMethod implements TraditionalMethod {
     private Method primitiveMethod;
 
     @Override
-    public Object invokeOn(Object hostInstance, List<Object> chainArgs) {
+    public Object invokeOn(Object hostInstance, List<Object> chainArgs){
         try {
             return primitiveMethod.invoke(hostInstance, chainArgs.toArray());
         } catch (IllegalAccessException e) {
-            throw new FluentizerException("illegal access",e);
+            throw new FluentizerException("Illegal access invoking method["+primitiveMethod+"] ",e);
         } catch (InvocationTargetException e) {
-            throw new FluentizerException("invok excep",e);
+            Throwable methodException = e.getCause();
+            throw new FluentizerException("Error inside method["+primitiveMethod+"]: " + methodException.getMessage(), methodException);
         }
     }
 
