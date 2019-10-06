@@ -28,7 +28,7 @@
 
   <properties>
     <!-- Sonar properties to prevent unintentional id changes (Reference: https://docs.sonarqube.org/latest/analysis/analysis-parameters/) -->
-    <sonar.projectKey>ar.com.dgarcia:fluentizer:master</sonar.projectKey>
+    <sonar.projectKey>ar.com.dgarcia:fluentizer</sonar.projectKey>
 
     <version.guava>16.0.1</version.guava>
     <version.slf4j>1.7.6</version.slf4j>
