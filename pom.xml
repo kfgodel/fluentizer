@@ -30,7 +30,7 @@
     <!-- Sonar properties to prevent unintentional id changes (Reference: https://docs.sonarqube.org/latest/analysis/analysis-parameters/) -->
     <sonar.projectKey>ar.com.dgarcia:fluentizer</sonar.projectKey>
 
-    <version.guava>16.0.1</version.guava>
+    <version.guava>29.0-jre</version.guava>
     <version.slf4j>1.7.6</version.slf4j>
     <version.logback>1.1.1</version.logback>
     <version.junit>4.11</version.junit>
